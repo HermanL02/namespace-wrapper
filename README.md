@@ -56,6 +56,32 @@ The Namespace Wrapper follows a modular architecture designed to:
 - Enable flexible file system operations
 - Support robust communication and validation mechanisms
 
+## 📁 File Contents Description
+
+### `src/index.ts`
+- Core implementation of `NamespaceWrapper` class
+- Handles task node operations, blockchain interactions, and state management
+- Provides methods for:
+  - Data storage (storeSet, storeGet)
+  - Payload signing
+  - Submission validation
+  - Task distribution
+  - Node communication
+
+### `src/types.ts`
+- TypeScript type definitions for:
+  - Task states
+  - Submission states
+  - Critical interface contracts
+- Ensures type safety and provides structured typing
+
+### `webasm_bincode_deserializer/`
+- WebAssembly and binary code deserialization utilities
+- Contains:
+  - `bincode_js.js`: Binary deserialization logic
+  - `bincode_js.d.ts`: TypeScript type definitions
+  - `zstd.wasm`: WebAssembly compression module
+
 ## 🚀 Installation
 
 ```bash
@@ -88,24 +114,9 @@ const isValid = await namespaceWrapper.validateAndVoteOnNodes(
 )
 ```
 
-## 📁 Key Files Description
+## 📚 Documentation
 
-### `src/index.ts`
-- Core implementation of `NamespaceWrapper` class
-- Handles task node operations, blockchain interactions, and state management
-- Provides methods for data storage, payload signing, submission validation, and distribution
-
-### `src/types.ts`
-- TypeScript type definitions for task states, submission states, and other critical interfaces
-- Ensures type safety across the namespace wrapper implementation
-
-### `webasm_bincode_deserializer/`
-- WebAssembly and binary code deserialization utilities
-- Supports parsing of task-related binary data
-
-## 📚 Comprehensive Documentation
-
-For detailed API documentation, refer to the [Koii Network Documentation](https://www.koii.network/docs/develop/write-a-koii-task/namespace-wrapper/the-namespace-object).
+For detailed API documentation, visit the [Koii Network Documentation](https://www.koii.network/docs/develop/write-a-koii-task/namespace-wrapper/the-namespace-object).
 
 ## 🤝 Contributing
 
