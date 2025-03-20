@@ -2,7 +2,7 @@
 
 ## 📝 Project Overview
 
-The Koii Namespace Wrapper is a sophisticated utility package designed to abstract and simplify the complexities of developing and managing tasks on the Koii Network. It provides a unified and standardized API for blockchain interactions, distributed computing, and task node operations.
+The Koii Namespace Wrapper is a sophisticated utility package designed to simplify and abstract the complexities of developing and managing tasks on the Koii Network. It provides a unified, standardized API for blockchain interactions, distributed computing, and task node operations.
 
 ### 🌟 Key Features
 
