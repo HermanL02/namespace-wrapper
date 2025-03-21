@@ -1,147 +1,110 @@
 # Koii Namespace Wrapper
 
-## 📝 Project Overview
+## Project Overview
 
-The Koii Namespace Wrapper is a sophisticated utility package designed to simplify and abstract the complexities of developing and managing tasks on the Koii Network. It provides a unified, standardized API for blockchain interactions, distributed computing, and task node operations.
+The Koii Namespace Wrapper is a utility package designed to simplify task development and management within the Koii Network ecosystem. It provides a comprehensive abstraction layer for interaction with Koii task infrastructure, enabling developers to create decentralized tasks with enhanced functionality and seamless blockchain integration.
 
-### 🌟 Key Features
+### Key Features
 
-- 🔒 **Secure State Management**: Persistent storage using NeDB for task-specific data
-- 🌐 **Blockchain Integration**: Direct interface with Koii Network through Web3.js
-- 📂 **Unified File System Operations**: Standardized access for local and distributed environments
-- 🔐 **Cryptographic Functions**: Built-in payload signing and verification
-- 💰 **Task Distribution Support**: Comprehensive reward and distribution management
-- 📝 **Advanced Logging**: Structured logging for debugging and monitoring
-- 🚀 **Express Server**: Integrated HTTP server for task communication
+- **Flexible Task Node Management**: Supports both task node-administered and local testing environments
+- **Blockchain Interaction**: Simplified methods for blockchain-related operations
+- **Database Management**: Integrated database handling with NeDB
+- **File System Abstraction**: Cross-environment file system operations
+- **Submission and Distribution Workflows**: Built-in methods for task submissions, audits, and reward distributions
+- **Cryptographic Utilities**: Signature verification and payload signing
+- **Environment Adaptability**: Seamless switching between task node and local development modes
 
-## 🗂️ Repository Structure
+## Repository Structure
 
 ```
 namespace-wrapper/
 │
-├── src/                    # TypeScript source code
-│   ├── index.ts            # Main implementation of NamespaceWrapper
-│   └── types.ts            # TypeScript type definitions
+├── src/                       # Source code directory
+│   ├── index.ts               # Main implementation of NamespaceWrapper
+│   └── types.ts               # TypeScript type definitions
 │
-├── webasm_bincode_deserializer/   # WebAssembly utilities
-│   ├── bincode_js.js       # Bincode deserialization logic
-│   ├── bincode_js.d.ts     # TypeScript definitions
-│   └── zstd.wasm           # WebAssembly module
+├── webasm_bincode_deserializer/  # WebAssembly and Bincode related utilities
+│   ├── bincode_js.js
+│   ├── bincode_js.d.ts
+│   └── zstd.wasm
 │
-├── .eslintrc.js            # ESLint configuration
-├── .gitignore              # Git ignore rules
-├── package.json            # NPM package configuration
-├── tsconfig.json           # TypeScript compiler configuration
-└── yarn.lock               # Yarn dependency lockfile
+├── package.json               # Project configuration and dependencies
+├── tsconfig.json              # TypeScript compiler configuration
+└── README.md                  # Project documentation
 ```
 
-## 🔧 Technical Details
+## Technical Details
 
-### 💻 Technologies Used
+### Technologies Used
 
 - **Language**: TypeScript
-- **Package Manager**: Yarn
-- **Blockchain**: Koii Network (Web3.js)
-- **Database**: NeDB (Embedded JavaScript database)
-- **Web Framework**: Express.js
-- **Cryptography**: TweetNaCl for signing and verification
-- **Serialization**: Bincode, WebAssembly
+- **Runtime**: Node.js
+- **Blockchain**: Koii Network (K2)
+- **Database**: NeDB (Embedded JavaScript Database)
+- **Cryptography**: 
+  - TweetNaCl for signature operations
+  - bs58 for base58 encoding/decoding
 
-### 🏗️ Architecture Overview
+### Architecture Overview
 
-The Namespace Wrapper follows a modular architecture designed to:
-- Abstract complex blockchain interactions
-- Provide standardized interfaces for task development
-- Ensure secure and efficient state management
-- Enable flexible file system operations
-- Support robust communication and validation mechanisms
+The Namespace Wrapper follows a modular and adaptive architecture:
 
-## 📁 File Contents Description
+1. **Core Class (`NamespaceWrapper`)**: 
+   - Central class managing task-related operations
+   - Supports both task node-administered and local testing modes
+   - Provides methods for blockchain interactions, file system operations, and task management
 
-### `src/index.ts`
-- Core implementation of `NamespaceWrapper` class
-- Handles task node operations, blockchain interactions, and state management
-- Provides methods for:
-  - Data storage (storeSet, storeGet)
-  - Payload signing
-  - Submission validation
-  - Task distribution
-  - Node communication
+2. **Generic Handler**:
+   - Facilitates communication between the task and the Koii task node
+   - Handles cross-environment method invocations
+   - Provides fallback mechanisms for testing and development
 
-### `src/types.ts`
-- TypeScript type definitions for:
-  - Task states
-  - Submission states
-  - Critical interface contracts
-- Ensures type safety and provides structured typing
+3. **Environment Adaptability**:
+   - Dynamically adjusts functionality based on the execution context
+   - Supports seamless transition between task node and local environments
 
-### `webasm_bincode_deserializer/`
-- WebAssembly and binary code deserialization utilities
-- Contains:
-  - `bincode_js.js`: Binary deserialization logic
-  - `bincode_js.d.ts`: TypeScript type definitions
-  - `zstd.wasm`: WebAssembly compression module
+## Core Functionalities
 
-## 🚀 Installation
+### Key Methods
+
+- `storeGet(key)`: Retrieve values from the embedded database
+- `storeSet(key, value)`: Store key-value pairs in the database
+- `payloadSigning(body)`: Sign payloads for blockchain submission
+- `verifySignature(signedMessage, pubKey)`: Verify cryptographic signatures
+- `validateAndVoteOnNodes()`: Validate task submissions across nodes
+- `selectAndGenerateDistributionList()`: Manage reward distribution workflows
+
+## Installation
 
 ```bash
 npm install @_koii/namespace-wrapper
-# or
-yarn add @_koii/namespace-wrapper
 ```
 
-## 🧑‍💻 Basic Usage
+## Usage Example
 
 ```typescript
-import { namespaceWrapper } from '@_koii/namespace-wrapper'
+import { namespaceWrapper } from '@_koii/namespace-wrapper';
 
-// Store and retrieve data
-await namespaceWrapper.storeSet('myKey', 'myValue')
-const value = await namespaceWrapper.storeGet('myKey')
-
-// Payload signing
-const signedPayload = await namespaceWrapper.payloadSigning({
-  data: 'example'
-})
-
-// Validate submission
-const isValid = await namespaceWrapper.validateAndVoteOnNodes(
-  async (submissionValue, round, nodePublicKey) => {
-    // Custom validation logic
-    return true
-  },
-  currentRound
-)
+async function myTask() {
+  // Store a value
+  await namespaceWrapper.storeSet('key', 'value');
+  
+  // Retrieve a value
+  const storedValue = await namespaceWrapper.storeGet('key');
+  
+  // Sign a payload
+  const signedPayload = await namespaceWrapper.payloadSigning({ data: 'example' });
+}
 ```
 
-## 📚 Documentation
+## Contributing
 
-For detailed API documentation, visit the [Koii Network Documentation](https://www.koii.network/docs/develop/write-a-koii-task/namespace-wrapper/the-namespace-object).
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 🤝 Contributing
+## License
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+This project is licensed under the ISC License.
 
-## 🆘 Support
+## Contact
 
-- 🌍 Website: [Koii Network](https://www.koii.network)
-- 💬 Discord: [Koii Network Discord](https://discord.com/invite/koii-network)
-- 📄 Documentation: [Koii Docs](https://docs.koii.network)
-
-## 📜 License
-
-Distributed under the ISC License.
-
-## 🏷️ Version
-
-Current Version: 1.0.23
-
-## 📞 Contact
-
-Koii Network - [@koiinetwork](https://twitter.com/koiinetwork)
-
-Project Link: [https://github.com/koii-network/namespace-wrapper](https://github.com/koii-network/namespace-wrapper)
+For more information, visit [Koii Network](https://www.koii.network)
